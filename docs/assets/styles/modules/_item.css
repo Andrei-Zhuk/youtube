@@ -1,0 +1,42 @@
+.item {
+    box-sizing: border-box;
+    font-size: 16px;
+    float: left;
+    color: #29303E;
+    background-color: #CFD5E4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 370px;
+    text-align: center;
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: 5px;
+    border-radius: 5px;
+
+    &__preview {
+        width: 100%;
+        margin: 0 -5px;
+    }
+
+    &__title {
+        white-space: nowrap;
+        color: #29303E;
+        font-size: 18px;
+        font-family: 'Lato', sans-serif;
+    }
+
+    &__info {
+        text-align: left;
+        padding: 0 40px;
+
+        .fa {
+            width: 20px;
+            text-align: center;
+            margin-right: 20px;
+        }
+
+        p {
+            font-weight: 600;
+            margin: 10px 0;
+        }
+    }
+}

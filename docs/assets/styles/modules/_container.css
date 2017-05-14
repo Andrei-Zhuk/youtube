@@ -1,0 +1,10 @@
+.container {
+    font-size: 0;
+    position: relative;
+}
+
+.container::after{
+    content: "";
+    display: table;
+    clear: both;
+}

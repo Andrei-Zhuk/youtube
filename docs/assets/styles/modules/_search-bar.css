@@ -1,0 +1,21 @@
+.search-form {
+    position: relative;
+    width: 400px;
+    margin: 10px auto;
+
+    &__input {
+        box-sizing: border-box;
+        width: 400px;
+        padding: 5px 10px;
+        padding-right: 30px;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        color: #29303E;
+    }
+
+    &__btn {
+        position: absolute;
+        right: 2px;
+        top: 4px;
+    }
+}

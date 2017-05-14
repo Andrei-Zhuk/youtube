@@ -1,0 +1,16 @@
+@import "normalize.css";
+@import "modules/_item";
+@import "modules/_container";
+@import "modules/_pages-bar";
+@import "modules/_search-bar";
+
+html {
+    height: 100%
+}
+
+body {
+    position: relative;
+    overflow-x: hidden;
+    background-color: #29303E;
+    min-height: 97%;
+}

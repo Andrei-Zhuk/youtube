@@ -12,8 +12,9 @@ export default class SearchBar {
         this.input.setAttribute('name', 'search');
         this.input.className = "search-form__input";
         this.btn = document.createElement('input');
-        this.btn.setAttribute('type', 'image');
-        this.btn.setAttribute('src', './../../assets/search.png');
+        this.btn.setAttribute('type', 'submit');
+        this.btn.setAttribute('value', '');
+        // this.btn.setAttribute('src', './../../assets/search.png');
         this.btn.className = 'search-form__btn'
     }
 

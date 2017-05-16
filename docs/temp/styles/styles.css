@@ -550,8 +550,13 @@ textarea {
 
 .search-form__btn {
   position: absolute;
+  background: transparent url('../../assets/search.png');
+  width: 25px;
+  height: 25px;
+  border: 1px solid transparent;
   right: 2px;
   top: 4px;
+  cursor: pointer;
 }
 
 html {
@@ -562,7 +567,7 @@ body {
     position: relative;
     overflow-x: hidden;
     background-color: #29303E;
-    min-height: 100%;
+    min-height: 97%;
     padding-bottom: 50px;
     box-sizing: border-box;
 }

@@ -3,9 +3,7 @@ import handleClick from './_page-click';
 
 export default function update(results) {
     let widthScreen, margin, widthItem, i, itemNumber, func;
-    document.body.style.overflow = "hidden"
     widthScreen = document.body.offsetWidth;
-    document.body.style.overflow = ""
     if (widthScreen >= 1200) {
         margin = 30;
         widthItem = (widthScreen - 8 * margin) / 4;

@@ -64,12 +64,32 @@
 	var search = new _searchBar2.default();
 	search.create();
 
+	var containerMobile = document.createElement('div');
+	containerMobile.style.width = '100%';
+	containerMobile.style.overflowX = 'hidden';
+
 	_variables.container.className = 'container';
-	_variables.container.onmousedown = _swipeEvents.handleMouseDown;
-	_variables.container.onmousemove = _swipeEvents.handleMouseMove;
-	_variables.container.onmouseup = _swipeEvents.handleMouseUp;
+	// container.onmousedown = handleMouseDown;
+	// container.onmousemove = handleMouseMove;
+	// container.onmouseup = handleMouseUp;
+	// container.ontouchstart = function (e) {
+	//     console.log(e);
+	// };
+	// container.ontouchmove = function (e) {
+	//     console.dir(e);
+	// };;
+	// container.ontouchend = function (e) {
+	//     console.dir(e);
+	// };;
+	_variables.container.addEventListener('mousedown', _swipeEvents.handleMouseDown);
+	_variables.container.addEventListener('mousemove', _swipeEvents.handleMouseMove);
+	_variables.container.addEventListener('mouseup', _swipeEvents.handleMouseUp);
+	_variables.container.addEventListener('touchstart', _swipeEvents.handleMouseDown);
+	_variables.container.addEventListener('touchmove', _swipeEvents.handleMouseMove);
+	_variables.container.addEventListener('touchend', _swipeEvents.handleMouseUp);
 	_variables.container.style.transition = 'all .3s';
-	document.body.appendChild(_variables.container);
+	containerMobile.appendChild(_variables.container);
+	document.body.appendChild(containerMobile);
 
 	_variables.containerPaging.className = 'container-paging';
 	_variables.containerPaging.style.margin = '0 auto';
@@ -83,31 +103,6 @@
 	    }
 	    e.preventDefault();
 	};
-
-	// let container = document.createElement('div');
-	// container.className = 'container';
-	// container.onmousedown = handleMouseDown;
-	// container.onmousemove = handleMouseMove;
-	// container.onmouseup = handleMouseUp;
-	// document.body.appendChild(container);
-
-
-	// var xhr = new XHR();
-	// var url = new Url(host, searchResource, apiKey, part, q, maxResults, type)
-	// xhr.open('GET', url.makeSearchUrl());
-	//
-	// xhr.onload = function() {
-	//   console.log( JSON.parse(xhr.responseText));
-	// }
-	//
-	// xhr.send();
-	//
-	// var xhr2 = new XHR();
-	// xhr2.open('GET', 'https://www.googleapis.com/youtube/v3/videos?key=AIzaSyCTWC75i70moJLzyNh3tt4jzCljZcRkU8Y&id=r-BExc9SS68&part=snippet,statistics')
-	// xhr2.onload = function() {
-	//   console.log( JSON.parse(xhr2.responseText));
-	// }
-	// xhr2.send();
 
 /***/ }),
 /* 1 */
@@ -461,9 +456,7 @@
 	        i = void 0,
 	        itemNumber = void 0,
 	        func = void 0;
-	    document.body.style.overflow = "hidden";
 	    widthScreen = document.body.offsetWidth;
-	    document.body.style.overflow = "";
 	    if (widthScreen >= 1200) {
 	        margin = 30;
 	        widthItem = (widthScreen - 8 * margin) / 4;
@@ -659,9 +652,12 @@
 	        this.preview.src = preview;
 	        this.preview.className = 'item__preview';
 
+	        this.descriptionBox = document.createElement('div');
+	        this.descriptionBox.className = 'item__descriptionBox';
+
 	        this.description = document.createElement('p');
 	        this.description.innerText = description;
-	        this.description.className = 'item__description';
+	        this.description.className = 'item__descriptionBox__description';
 
 	        this.info = document.createElement('div');
 	        this.info.className = 'item__info';
@@ -692,7 +688,8 @@
 	            this.info.appendChild(this.date);
 	            this.info.appendChild(this.viewCount);
 	            this.item.appendChild(this.info);
-	            this.item.appendChild(this.description);
+	            this.descriptionBox.appendChild(this.description);
+	            this.item.appendChild(this.descriptionBox);
 	            container.appendChild(this.item);
 	        }
 	    }, {
@@ -740,18 +737,29 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var startingX = void 0,
-	    mouseIsDown = void 0;
+	    mouseIsDown = void 0,
+	    isTouched = void 0;
 
 	function handleMouseDown(e) {
-		mouseIsDown = true;
-		startingX = e.clientX;
+		if (e.touches) {
+			isTouched = true;
+			startingX = e.touches[0].clientX;
+		} else {
+			mouseIsDown = true;
+			startingX = e.clientX;
+		}
 	};
 
 	function handleMouseMove(e) {
-		if (mouseIsDown) {
+		if (mouseIsDown || isTouched) {
 			var change = void 0,
 			    diff = void 0;
-			change = startingX - e.clientX;
+			if (mouseIsDown) {
+				change = startingX - e.clientX;
+			} else {
+				change = startingX - e.touches[0].clientX;
+			}
+
 			if (change < 0 && _variables.pages.current !== 0) {
 				_variables.container.style.left = document.body.offsetWidth * -_variables.pages.current - change + 'px';
 			} else if (change > 0 && _variables.pages.current !== _variables.pages.list.length - 1) {
@@ -762,11 +770,16 @@
 	};
 
 	function handleMouseUp(e) {
-		mouseIsDown = false;
 		var change = void 0,
 		    border = void 0;
-		change = startingX - e.clientX;
-		border = 200;
+		if (mouseIsDown) {
+			change = startingX - e.clientX;
+		} else {
+			change = startingX - e.changedTouches[0].clientX;
+		}
+		mouseIsDown = false;
+		isTouched = false;
+		border = 200 > screen.width / 3 ? screen.width / 3 : 200;
 		if (Math.abs(change) < border) {
 			_variables.container.style.left = document.body.offsetWidth * -_variables.pages.current + 'px';
 		} else {

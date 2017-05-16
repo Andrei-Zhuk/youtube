@@ -7,12 +7,32 @@ import update from './_update';
 let search = new SearchBar();
 search.create();
 
+let containerMobile = document.createElement('div');
+containerMobile.style.width = '100%';
+containerMobile.style.overflowX = 'hidden';
+
 container.className = 'container';
-container.onmousedown = handleMouseDown;
-container.onmousemove = handleMouseMove;
-container.onmouseup = handleMouseUp;
+// container.onmousedown = handleMouseDown;
+// container.onmousemove = handleMouseMove;
+// container.onmouseup = handleMouseUp;
+// container.ontouchstart = function (e) {
+//     console.log(e);
+// };
+// container.ontouchmove = function (e) {
+//     console.dir(e);
+// };;
+// container.ontouchend = function (e) {
+//     console.dir(e);
+// };;
+container.addEventListener('mousedown', handleMouseDown)
+container.addEventListener('mousemove', handleMouseMove)
+container.addEventListener('mouseup', handleMouseUp)
+container.addEventListener('touchstart', handleMouseDown)
+container.addEventListener('touchmove', handleMouseMove)
+container.addEventListener('touchend', handleMouseUp)
 container.style.transition = 'all .3s';
-document.body.appendChild(container);
+containerMobile.appendChild(container);
+document.body.appendChild(containerMobile)
 
 containerPaging.className = 'container-paging';
 containerPaging.style.margin = '0 auto';
@@ -26,29 +46,3 @@ window.onresize = function (e) {
     }
     e.preventDefault()
 }
-
-// let container = document.createElement('div');
-// container.className = 'container';
-// container.onmousedown = handleMouseDown;
-// container.onmousemove = handleMouseMove;
-// container.onmouseup = handleMouseUp;
-// document.body.appendChild(container);
-
-
-
-// var xhr = new XHR();
-// var url = new Url(host, searchResource, apiKey, part, q, maxResults, type)
-// xhr.open('GET', url.makeSearchUrl());
-//
-// xhr.onload = function() {
-//   console.log( JSON.parse(xhr.responseText));
-// }
-//
-// xhr.send();
-//
-// var xhr2 = new XHR();
-// xhr2.open('GET', 'https://www.googleapis.com/youtube/v3/videos?key=AIzaSyCTWC75i70moJLzyNh3tt4jzCljZcRkU8Y&id=r-BExc9SS68&part=snippet,statistics')
-// xhr2.onload = function() {
-//   console.log( JSON.parse(xhr2.responseText));
-// }
-// xhr2.send();

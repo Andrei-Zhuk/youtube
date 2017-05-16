@@ -1,16 +1,27 @@
 import {pages, container, loadInfo} from './_variables';
 import requestSearch from './_request-search';
-let startingX, mouseIsDown;
+let startingX, mouseIsDown, isTouched;
 
 export function handleMouseDown (e) {
-	mouseIsDown = true;
-	startingX = e.clientX;
+	if (e.touches){
+		isTouched = true;
+		startingX = e.touches[0].clientX;
+	} else {
+		mouseIsDown = true;
+		startingX = e.clientX;
+	}
+
 };
 
 export function handleMouseMove(e) {
-	if (mouseIsDown){
+	if (mouseIsDown || isTouched){
         let change, diff;
-		change = startingX - e.clientX;
+		if (mouseIsDown){
+			change = startingX - e.clientX;
+		} else {
+			change = startingX - e.touches[0].clientX;
+		}
+
 		if(change < 0 && pages.current !== 0) {
             container.style.left = `${document.body.offsetWidth * (-pages.current) - change}px`;
 		} else if (change > 0 && pages.current !== pages.list.length - 1) {
@@ -22,10 +33,15 @@ export function handleMouseMove(e) {
 };
 
 export function handleMouseUp(e) {
+	let change, border;
+	if (mouseIsDown){
+		change = startingX - e.clientX;
+	} else {
+		change = startingX - e.changedTouches[0].clientX;
+	}
 	mouseIsDown = false;
-    let change, border;
-	change = startingX - e.clientX;
-	border = 200;
+	isTouched = false;
+	border = 200 > screen.width / 3 ? screen.width / 3 : 200;
 	if (Math.abs(change) < border) {
 		container.style.left = `${document.body.offsetWidth * (-pages.current)}px`;
 	} else {

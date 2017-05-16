@@ -1,8 +1,9 @@
 .container-paging {
     position: absolute;
-    bottom: 10px;
+    bottom: 25px;
     left: 50%;
     transform: translateX(-50%);
+    /*margin: 0 auto;*/
 }
 
 .pages-bar{

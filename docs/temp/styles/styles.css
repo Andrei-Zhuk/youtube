@@ -427,25 +427,36 @@ textarea {
     float: left;
     color: #29303E;
     background-color: #CFD5E4;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    height: 370px;
     text-align: center;
     font-family: 'Source Sans Pro', sans-serif;
-    padding: 5px;
     border-radius: 5px;
 }
 
 .item__preview {
   width: 100%;
-  margin: 0 -5px;
+  margin-top: 27px;
 }
 
 .item__title {
+  position: absolute;
   white-space: nowrap;
   color: #29303E;
   font-size: 18px;
   font-family: 'Lato', sans-serif;
+  width: inherit;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  border-radius: 5px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.item__title:hover {
+  white-space: normal;
+  text-overflow: clip;
+  background-color: inherit;
+  color: #5e6c88;
 }
 
 .item__info {
@@ -464,9 +475,19 @@ textarea {
   margin: 10px 0;
 }
 
+.item__descriptionBox {
+  height: 100px;
+  text-align: left;
+  overflow-y: scroll;
+  word-wrap: break-word;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
 .container {
     font-size: 0;
     position: relative;
+    margin-bottom: 20px;
 }
 
 .container::after{
@@ -477,10 +498,11 @@ textarea {
 
 .container-paging {
     position: absolute;
-    bottom: 10px;
+    bottom: 25px;
     left: 50%;
     -webkit-transform: translateX(-50%);
             transform: translateX(-50%);
+    /*margin: 0 auto;*/
 }
 
 .pages-bar{
@@ -511,12 +533,14 @@ textarea {
 .search-form {
     position: relative;
     width: 400px;
+    max-width: 90%;
     margin: 10px auto;
 }
 
 .search-form__input {
   box-sizing: border-box;
   width: 400px;
+  max-width: 100%;
   padding: 5px 10px;
   padding-right: 30px;
   border: 1px solid transparent;
@@ -538,5 +562,7 @@ body {
     position: relative;
     overflow-x: hidden;
     background-color: #29303E;
-    min-height: 97%;
+    min-height: 100%;
+    padding-bottom: 50px;
+    box-sizing: border-box;
 }

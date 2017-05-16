@@ -4,24 +4,35 @@
     float: left;
     color: #29303E;
     background-color: #CFD5E4;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    height: 370px;
     text-align: center;
     font-family: 'Source Sans Pro', sans-serif;
-    padding: 5px;
     border-radius: 5px;
 
     &__preview {
         width: 100%;
-        margin: 0 -5px;
+        margin-top: 27px;
     }
 
     &__title {
+        position: absolute;
         white-space: nowrap;
         color: #29303E;
         font-size: 18px;
         font-family: 'Lato', sans-serif;
+        width: inherit;
+        text-overflow: ellipsis;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        border-radius: 5px;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+
+    &__title:hover {
+        white-space: normal;
+        text-overflow: clip;
+        background-color: inherit;
+        color: #5e6c88;
     }
 
     &__info {
@@ -38,5 +49,14 @@
             font-weight: 600;
             margin: 10px 0;
         }
+    }
+
+    &__descriptionBox {
+        height: 100px;
+        text-align: left;
+        overflow-y: scroll;
+        word-wrap: break-word;
+        padding: 5px;
+        margin-bottom: 5px;
     }
 }

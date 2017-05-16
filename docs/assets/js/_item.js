@@ -12,9 +12,12 @@ export default class Item {
         this.preview.src = preview;
         this.preview.className = 'item__preview';
 
+        this.descriptionBox = document.createElement('div');
+        this.descriptionBox.className = 'item__descriptionBox';
+
         this.description = document.createElement('p');
         this.description.innerText = description;
-        this.description.className = 'item__description';
+        this.description.className = 'item__descriptionBox__description';
 
         this.info = document.createElement('div');
         this.info.className = 'item__info';
@@ -42,7 +45,8 @@ export default class Item {
         this.info.appendChild(this.date)
         this.info.appendChild(this.viewCount)
         this.item.appendChild(this.info)
-        this.item.appendChild(this.description)
+        this.descriptionBox.appendChild(this.description)
+        this.item.appendChild(this.descriptionBox)
         container.appendChild(this.item)
     }
 
